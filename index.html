@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味数学12</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #16a085;
+            margin-top: 20px;
+        }
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .rule {
+            background-color: #f1f9fe;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        .example {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+        }
+        .question {
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 12px 0 5px 0;
+        }
+        .answer {
+            color: #27ae60;
+            margin-left: 20px;
+            padding-left: 10px;
+            border-left: 2px solid #2ecc71;
+        }
+        
+        /* 平行四边形动画 */
+        .parallelogram-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .parallelogram {
+            width: 150px;
+            height: 100px;
+            background-color: #3498db;
+            transform: skewX(-20deg);
+            position: relative;
+            animation: paraPulse 3s infinite;
+        }
+        .para-base {
+            position: absolute;
+            bottom: -20px;
+            width: 150px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        .para-height {
+            position: absolute;
+            left: 50%;
+            height: 100px;
+            width: 2px;
+            background-color: #2ecc71;
+            transform: skewX(20deg);
+            animation: heightPulse 3s infinite;
+        }
+        @keyframes paraPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        @keyframes heightPulse {
+            0%, 100% { height: 100px; }
+            50% { height: 120px; }
+        }
+        
+        /* 正方形动画 */
+        .square-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            background-color: #e74c3c;
+            position: relative;
+            animation: squareRotate 5s infinite linear;
+        }
+        .square-diagonal {
+            position: absolute;
+            width: 140px;
+            height: 2px;
+            background-color: #f1c40f;
+            transform: rotate(45deg);
+            top: 50%;
+            left: -20px;
+        }
+        @keyframes squareRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 长方形动画 */
+        .rectangle-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .rectangle {
+            width: 150px;
+            height: 80px;
+            background-color: #2ecc71;
+            position: relative;
+            animation: rectPulse 3s infinite;
+        }
+        .rect-diagonal {
+            position: absolute;
+            width: 170px;
+            height: 2px;
+            background-color: #9b59b6;
+            transform: rotate(28.07deg);
+            top: 50%;
+            left: -10px;
+        }
+        @keyframes rectPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* 三角形动画 */
+        .triangle-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 100px solid #3498db;
+            position: relative;
+            animation: triangleBounce 3s infinite;
+        }
+        .triangle-base {
+            position: absolute;
+            width: 120px;
+            height: 2px;
+            background-color: #e74c3c;
+            top: 100px;
+            left: -60px;
+        }
+        .triangle-height {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background-color: #2ecc71;
+            left: 0;
+            top: 0;
+            animation: heightGrow 3s infinite;
+        }
+        @keyframes triangleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes heightGrow {
+            0%, 100% { height: 100px; }
+            50% { height: 120px; }
+        }
+        
+        /* 梯形动画 */
+        .trapezoid-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .trapezoid {
+            width: 150px;
+            height: 0;
+            border-bottom: 80px solid #9b59b6;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            position: relative;
+            animation: trapezoidPulse 3s infinite;
+        }
+        .trap-top {
+            position: absolute;
+            width: 90px;
+            height: 2px;
+            background-color: #e74c3c;
+            top: 0;
+            left: 30px;
+        }
+        .trap-bottom {
+            position: absolute;
+            width: 150px;
+            height: 2px;
+            background-color: #f1c40f;
+            bottom: 0;
+            left: 0;
+        }
+        .trap-height {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background-color: #2ecc71;
+            left: 50%;
+            bottom: 0;
+            animation: trapHeight 3s infinite;
+        }
+        @keyframes trapezoidPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        @keyframes trapHeight {
+            0%, 100% { height: 80px; }
+            50% { height: 100px; }
+        }
+        
+        /* 组合图形动画 */
+        .composite-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .composite-shape {
+            position: relative;
+            width: 180px;
+            height: 120px;
+        }
+        .comp-square {
+            width: 80px;
+            height: 80px;
+            background-color: #3498db;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: compPulse 3s infinite;
+        }
+        .comp-triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid #e74c3c;
+            position: absolute;
+            top: 0;
+            right: 0;
+            animation: compPulse 3s infinite reverse;
+        }
+        @keyframes compPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* 字母竖式动画 */
+        .letter-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .letter-equation {
+            font-family: monospace;
+            font-size: 24px;
+            text-align: center;
+            animation: letterFloat 3s infinite ease-in-out;
+        }
+        .letter-highlight {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        @keyframes letterFloat {
+           0%, 100% { transform: translateY(0); }
+           50% { transform: translateY(-10px); }
+        }
+        
+        /* 加法原理动画 */
+        .addition-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .add-ball {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            animation: ballBounce 2s infinite ease-in-out;
+        }
+        .red-ball {
+            background-color: #e74c3c;
+            left: 80px;
+            top: 60px;
+        }
+        .blue-ball {
+            background-color: #3498db;
+            left: 150px;
+            top: 60px;
+            animation-delay: 0.2s;
+        }
+        .plus-sign {
+            position: absolute;
+            font-size: 30px;
+            left: 120px;
+            top: 60px;
+            animation: plusPulse 2s infinite;
+        }
+        .equals-sign {
+            position: absolute;
+            font-size: 30px;
+            left: 200px;
+            top: 60px;
+            animation: equalsPulse 2s infinite;
+        }
+        .result-balls {
+            position: absolute;
+            left: 240px;
+            top: 60px;
+        }
+        .result-ball {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: ballBounce 2s infinite ease-in-out;
+        }
+        .result-ball:nth-child(1) { background-color: #e74c3c; animation-delay: 0s; }
+        .result-ball:nth-child(2) { background-color: #3498db; animation-delay: 0.2s; }
+        @keyframes ballBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes plusPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        @keyframes equalsPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* 乘法原理动画 */
+        .multiplication-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .shirt {
+            width: 60px;
+            height: 80px;
+            background-color: #3498db;
+            position: absolute;
+            left: 150px;
+            top: 60px;
+            animation: shirtFloat 3s infinite ease-in-out;
+        }
+        .pants {
+            width: 40px;
+            height: 60px;
+            background-color: #2ecc71;
+            position: absolute;
+            left: 230px;
+            top: 70px;
+            animation: pantsFloat 3s infinite ease-in-out;
+            animation-delay: 0.2s;
+        }
+		
+		
+        .times-sign {
+            position: absolute;
+            font-size: 30px;
+            left: 480px;
+            top: 80px;
+            animation: timesPulse 2s infinite;
+        }
+        .equals-sign {
+            position: absolute;
+            font-size: 30px;
+            left: 353px;
+            top: 80px;
+            animation: equalsPulse 2s infinite;
+        }
+        .combinations {
+            position: absolute;
+            left: 480px;
+            top: 60px;
+            width: 100px;
+            height: 100px;
+        }
+        .combo {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background-color: #3498db;
+            border: 2px solid #2ecc71;
+            animation: comboAppear 3s infinite;
+        }
+        .combo:nth-child(1) { top: 0; left: 0; animation-delay: 0s; }
+        .combo:nth-child(2) { top: 0; right: 0; animation-delay: 0.2s; }
+        .combo:nth-child(3) { bottom: 0; left: 0; animation-delay: 0.4s; }
+        .combo:nth-child(4) { bottom: 0; right: 0; animation-delay: 0.6s; }
+        @keyframes shirtFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pantsFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        @keyframes timesPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        @keyframes comboAppear {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* 排列组合动画 */
+        .permutation-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .people {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .person {
+            width: 40px;
+            height: 60px;
+            background-color: #9b59b6;
+            border-radius: 5px;
+            position: relative;
+            animation: personSwap 4s infinite;
+            animation-delay: calc(var(--delay) * 0.5s);
+        }
+        .person-head {
+            width: 30px;
+            height: 20px;
+            background-color: #d35400;
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            top: -10px;
+            left: 5px;
+        }
+        @keyframes personSwap {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-20px); }
+            50% { transform: translateY(0) rotate(5deg); }
+            75% { transform: translateY(10px) rotate(-5deg); }
+        }
+        
+        /* 路径计数动画 */
+        .path-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 30px);
+            grid-template-rows: repeat(3, 30px);
+            gap: 1px;
+        }
+        .cell {
+            width: 30px;
+            height: 30px;
+            background-color: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .path {
+            position: absolute;
+            width: 2px;
+            background-color: #e74c3c;
+            transform-origin: top left;
+            animation: pathDraw 4s infinite;
+        }
+        @keyframes pathDraw {
+            0% { width: 0; }
+            100% { width: var(--path-length); transform: rotate(var(--path-angle)); }
+        }
+        
+        /* 染色问题动画 */
+        .coloring-animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .flag {
+            width: 60px;
+            height: 40px;
+            position: relative;
+            margin: 0 10px;
+            animation: flagWave 3s infinite ease-in-out;
+        }
+        .flag-color {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: colorChange 6s infinite;
+        }
+        .flag:nth-child(1) .flag-color { background-color: #e74c3c; animation-delay: 0s; }
+        .flag:nth-child(2) .flag-color { background-color: #3498db; animation-delay: 1s; }
+        .flag:nth-child(3) .flag-color { background-color: #2ecc71; animation-delay: 2s; }
+        .flag-pole {
+            width: 5px;
+            height: 60px;
+            background-color: #7f8c8d;
+            position: absolute;
+            left: -5px;
+            top: 0;
+        }
+        @keyframes flagWave {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+        @keyframes colorChange {
+            0%, 33% { background-color: #e74c3c; }
+            33%, 66% { background-color: #3498db; }
+            66%, 100% { background-color: #2ecc71; }
+        }
+    </style>
+</head>
+<body>
+    <h1>趣味数学9 - 基本图形与计数原理</h1>
+    
+    <div class="section">
+        <h2>基本直线形面积公式</h2>
+        
+        <h3>1. 平行四边形</h3>
+        <div class="parallelogram-animation">
+            <div class="parallelogram">
+                <div class="para-base"></div>
+                <div class="para-height"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>面积公式：</strong> 面积=底×高，高必须垂直底边
+        </div>
+        <div class="example">
+            <div class="question">平行四边形的底为10cm，高为6cm，面积是多少？</div>
+            <div class="answer">60cm²</div>
+            
+            <div class="question">一个平行四边形的面积是96cm²，底边是12cm，高是多少？</div>
+            <div class="answer">8cm</div>
+            
+            <div class="question">平行四边形的底和高分别是9cm和5cm，面积是多少？</div>
+            <div class="answer">45cm²</div>
+        </div>
+        
+        <h3>2. 正方形</h3>
+        <div class="square-animation">
+            <div class="square">
+                <div class="square-diagonal"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>面积公式：</strong> 面积=边长×边长，对角线=边长×√2
+        </div>
+        <div class="example">
+            <div class="question">边长为6cm的正方形，面积是多少？</div>
+            <div class="answer">36cm²</div>
+            
+            <div class="question">边长为8cm的正方形，对角线长度是多少？(保留根号)</div>
+            <div class="answer">8√2 cm</div>
+            
+            <div class="question">正方形的面积是100cm²，边长是多少？</div>
+            <div class="answer">10cm</div>
+        </div>
+        
+        <h3>3. 长方形</h3>
+        <div class="rectangle-animation">
+            <div class="rectangle">
+                <div class="rect-diagonal"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>面积公式：</strong> 面积=长×宽，对角线=√(长²+宽²)
+        </div>
+        <div class="example">
+            <div class="question">长方形的长和宽分别是10cm和6cm，面积是多少？</div>
+            <div class="answer">60cm²</div>
+            
+            <div class="question">长方形的长和宽分别是5cm和12cm，对角线长度是多少？</div>
+            <div class="answer">13cm</div>
+            
+            <div class="question">长方形的面积是120cm²，长是15cm，宽是多少？</div>
+            <div class="answer">8cm</div>
+        </div>
+        
+        <h3>4. 三角形</h3>
+        <div class="triangle-animation">
+            <div class="triangle">
+                <div class="triangle-base"></div>
+                <div class="triangle-height"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>面积公式：</strong> 面积=底×高÷2，三角形两边之和大于第三边
+        </div>
+        <div class="example">
+            <div class="question">三角形的底为10cm，高为6cm，面积是多少？</div>
+            <div class="answer">30cm²</div>
+            
+            <div class="question">三角形的面积是20cm²，底是8cm，高是多少？</div>
+            <div class="answer">5cm</div>
+            
+            <div class="question">以下哪组边长可以构成三角形？A) 3cm,4cm,5cm B) 3cm,4cm,8cm</div>
+            <div class="answer">A) 3cm,4cm,5cm</div>
+        </div>
+        
+        <h3>5. 梯形</h3>
+        <div class="trapezoid-animation">
+            <div class="trapezoid">
+                <div class="trap-top"></div>
+                <div class="trap-bottom"></div>
+                <div class="trap-height"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>面积公式：</strong> 面积=(上底+下底)×高÷2
+        </div>
+        <div class="example">
+            <div class="question">梯形的上底6cm，下底10cm，高4cm，面积是多少？</div>
+            <div class="answer">32cm²</div>
+            
+            <div class="question">梯形的面积是50cm²，上底8cm，下底12cm，高是多少？</div>
+            <div class="answer">5cm</div>
+            
+            <div class="question">梯形的上底和下底分别是9cm和15cm，高6cm，面积是多少？</div>
+            <div class="answer">72cm²</div>
+        </div>
+        
+        <h3>6. 组合图形</h3>
+        <div class="composite-animation">
+            <div class="composite-shape">
+                <div class="comp-square"></div>
+                <div class="comp-triangle"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>计算方法：</strong> 将复杂图形分割成基本图形分别计算面积，然后相加
+        </div>
+        <div class="example">
+            <div class="question">一个正方形和一个三角形组成的图形，总面积60cm²，正方形面积30cm²，三角形面积是多少？</div>
+            <div class="answer">30cm²</div>
+            
+            <div class="question">一个梯形上接一个平行四边形，总面积90cm²，梯形面积60cm²，平行四边形面积是多少？</div>
+            <div class="answer">30cm²</div>
+            
+            <div class="question">上面是正方形20cm²，下面是长方形40cm²，总面积是多少？</div>
+            <div class="answer">60cm²</div>
+        </div>
+        
+        <h3>7. 逆向求解</h3>
+        <div class="rule">
+            <strong>计算方法：</strong> 已知面积和高，求底边：底=面积÷高
+        </div>
+        <div class="example">
+            <div class="question">平行四边形的面积是60cm²，高10cm，底边是多少？</div>
+            <div class="answer">6cm</div>
+            
+            <div class="question">三角形的面积是72cm²，高8cm，底边是多少？</div>
+            <div class="answer">18cm</div>
+            
+            <div class="question">梯形的面积是100cm²，高25cm，上底+下底的和是多少？</div>
+            <div class="answer">8cm</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>字母竖式</h2>
+        
+        <div class="letter-animation">
+            <div class="letter-equation">
+                <span class="letter-highlight">A</span>B<br>
+                + <span class="letter-highlight">A</span>C<br>
+                ------<br>
+                &nbsp;BA
+            </div>
+        </div>
+        
+        <h3>1. 首位分析</h3>
+        <div class="rule">
+            <strong>规则：</strong> 首位不能为0，乘法中两个一位数相乘的首位≤9
+        </div>
+        <div class="example">
+            <div class="question">在两位数AB中，A的取值范围是什么？</div>
+            <div class="answer">1-9</div>
+            
+            <div class="question">如果A×B的首位是2，A可能为哪些数字？</div>
+            <div class="answer">3-9（如3×7=21，4×5=20等）</div>
+            
+            <div class="question">某乘法结果首位为9，可能是9×？</div>
+            <div class="answer">1（9×1=9）或10以上（但字母竖式通常是一位数）</div>
+        </div>
+        
+        <h3>2. 重复数字</h3>
+        <div class="rule">
+            <strong>规则：</strong> 相同字母代表相同数字，不同字母代表不同数字
+        </div>
+        <div class="example">
+            <div class="question">若A+B=AA，B等于多少？</div>
+            <div class="answer">A×10 - A = 9A（如A=1,B=9）</div>
+            
+            <div class="question">若A×A=BB，则B等于多少？</div>
+            <div class="answer">可能的解：A=1,B=1(11)或A=2,B=4(24)等</div>
+            
+            <div class="question">在AB+CD=DC中，如果A=1，C可能是多少？</div>
+            <div class="answer">需要更多信息，但C≠A</div>
+        </div>
+        
+        <h3>3. 进位规则</h3>
+        <div class="rule">
+            <strong>规则：</strong> 加法进位最多为1，乘法进位可能大于1
+        </div>
+        <div class="example">
+            <div class="question">7 + 5 = 12，个位是否有进位？</div>
+            <div class="answer">有进位1</div>
+            
+            <div class="question">9 × 9 = 81，十位的进位是多少？</div>
+            <div class="answer">8</div>
+            
+            <div class="question">在AB+CD=EF中，如果B+D≥10，说明什么？</div>
+            <div class="answer">个位有进位1到十位</div>
+        </div>
+        
+        <h3>4. 乘积位数</h3>
+        <div class="rule">
+            <strong>规则：</strong> m位数×n位数得m+n-1或m+n位数
+        </div>
+        <div class="example">
+            <div class="question">两位数×一位数，最多是几位数？</div>
+            <div class="answer">3位数（如99×9=891）</div>
+            
+            <div class="question">三位数×两位数，最少是几位数？</div>
+            <div class="answer">4位数（如100×10=1000）</div>
+            
+            <div class="question">99×99，结果是几位数？</div>
+            <div class="answer">4位数（9801）</div>
+        </div>
+        
+        <h3>5. 借位逻辑</h3>
+        <div class="rule">
+            <strong>规则：</strong> 减法中不够减时要借位，借1当10
+        </div>
+        <div class="example">
+            <div class="question">52 - 7，个位如何计算？</div>
+            <div class="answer">十位借1，个位12-7=5</div>
+            
+            <div class="question">803 - 68，十位如何计算？</div>
+            <div class="answer">百位借1，十位9-6=3</div>
+            
+            <div class="question">在AB-CD=EF中，如果B&lt;D，说明什么？</div>
+            <div class="answer">个位需要从十位借1</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>加法原理与乘法原理</h2>
+        
+        <h3>1. 分类计数（加法原理）</h3>
+        <div class="addition-animation">
+            <div class="red-ball add-ball"></div>
+            <div class="plus-sign">+</div>
+            <div class="blue-ball add-ball"></div>
+            <div class="equals-sign">=</div>
+            <div class="result-balls">
+                <div class="result-ball"></div>
+                <div class="result-ball"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>原理：</strong> 完成一件事有不同类方法，各类方法数相加
+        </div>
+        <div class="example">
+            <div class="question">书架上有3本故事书和2本科普书，小明要选一本书，有多少种选择？</div>
+            <div class="answer">5种（3+2）</div>
+            
+            <div class="question">周末活动可以选择游泳或骑车，游泳有2个时段可选，骑车有3条路线可选，共有多少选择？</div>
+            <div class="answer">5种（2+3）</div>
+            
+            <div class="question">餐厅提供3种主食和2种汤，如果只能选一样，有多少种选择？</div>
+            <div class="answer">5种（3+2）</div>
+        </div>
+        
+        <h3>2. 分步计数（乘法原理）</h3>
+        <div class="multiplication-animation">
+            <div class="shirt"></div>
+           
+            <div class="pants"></div>
+         <div class="equals-sign">➡️</div>
+            <div class="combinations">
+                <div class="combo"></div>
+                <div class="combo"></div>
+                <div class="combo"></div>
+                <div class="combo"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>原理：</strong> 完成一件事需要多个步骤，各步骤方法数相乘
+        </div>
+        <div class="example">
+            <div class="question">小明有2件上衣和3条裤子，可以组成多少种不同的穿着搭配？</div>
+            <div class="answer">6种（2×3）</div>
+            
+            <div class="question">一道选择题有4个选项，另一道有5个选项，回答这两道题有多少种答案组合？</div>
+            <div class="answer">20种（4×5）</div>
+            
+            <div class="question">拍照时有3个背景可选，2个姿势可选，共可以拍出多少种不同照片？</div>
+            <div class="answer">6种（3×2）</div>
+        </div>
+        
+        <h3>3. 排列组合</h3>
+        <div class="permutation-animation">
+            <div class="people">
+                <div class="person" style="--delay: 0;">
+                    <div class="person-head"></div>
+                </div>
+                <div class="person" style="--delay: 1;">
+                    <div class="person-head"></div>
+                </div>
+                <div class="person" style="--delay: 2;">
+                    <div class="person-head"></div>
+                </div>
+            </div>
+</div>
+        <div class="rule">
+            <strong>区别：</strong> 排列考虑顺序（AB≠BA），组合不考虑顺序（AB=BA）
+        </div>
+        <div class="example">
+            <div class="question">A、B、C三人排成一排照相，有多少种不同的排列方式？</div>
+            <div class="answer">6种（3×2×1）</div>
+            
+            <div class="question">从5人中选出2人组成小组，有多少种不同的组合方式？</div>
+            <div class="answer">10种（5×4÷2）</div>
+            
+            <div class="question">从4种颜色中选2种涂旗子，顺序不同算不同方案，有多少种涂法？</div>
+            <div class="answer">12种（4×3）</div>
+        </div>
+        
+        <h3>4. 路径计数</h3>
+        <div class="path-animation">
+            <div class="grid">
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">1</div>
+                <div class="cell">2</div>
+                <div class="cell">3</div>
+                <div class="cell">1</div>
+                <div class="cell">3</div>
+                <div class="cell">6</div>
+            </div>
+            <div class="path" style="--path-length: 30px; --path-angle: 0deg;"></div>
+            <div class="path" style="--path-length: 60px; --path-angle: 90deg;"></div>
+        </div>
+        <div class="rule">
+            <strong>方法：</strong> 网格中从起点到某点的路径数=上方点的路径数+左方点的路径数
+        </div>
+        <div class="example">
+            <div class="question">在2×2的网格中，从左上角到右下角只能向右或向下走，有多少条不同路径？</div>
+            <div class="answer">6条</div>
+            
+            <div class="question">3×3方格中从左上到右下有多少条路径？</div>
+            <div class="answer">20条</div>
+            
+            <div class="question">从起点只能向右或向下走，经过2×1格的矩形，有多少条路径？</div>
+            <div class="answer">3条</div>
+        </div>
+        
+        <h3>5. 染色问题</h3>
+        <div class="coloring-animation">
+            <div class="flag">
+                <div class="flag-pole"></div>
+                <div class="flag-color"></div>
+            </div>
+            <div class="flag">
+                <div class="flag-pole"></div>
+                <div class="flag-color"></div>
+            </div>
+            <div class="flag">
+                <div class="flag-pole"></div>
+                <div class="flag-color"></div>
+            </div>
+        </div>
+        <div class="rule">
+            <strong>方法：</strong> 使用乘法原理，相邻区域颜色不同
+        </div>
+        <div class="example">
+            <div class="question">有3种颜色可以涂一面旗子，有多少种涂法？</div>
+            <div class="answer">3种</div>
+            
+            <div class="question">两面旗帜各可选3种颜色，且颜色不能相同，有多少种涂法？</div>
+            <div class="answer">6种（3×2）</div>
+            
+            <div class="question">用4种颜色涂三段旗子，相邻两段颜色不同，有多少种涂法？</div>
+            <div class="answer">4×3×3=36种</div>
+        </div>
+    </div>
+</body>
+</html>
